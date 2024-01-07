@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool-时间屏幕</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000;
+            position: relative;
+        }
+        .a{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 100px;
+            font-family: "ink free";
+            color: #fff;
+        }
+        .b{
+            position: absolute;
+            font-size: 35px;
+            font-family: "ink free";
+            bottom: 5px;
+            right: 5px;
+            color: #fff;
+        }
+        .turn{
+            width: 10vw;
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <img src="../icon/亮度+.png" alt="" class="turn" onclick="colort();">
+    <p class="a">00:00:00</p>
+    <p class="b"></p>
+    <script>
+        function colort(){
+            if (document.querySelector(".turn").getAttribute("src")=="../icon/亮度+.png"){
+                document.querySelector(".turn").setAttribute("src","../icon/亮度-.png");
+                document.querySelector("body").style.backgroundColor = "#fff";
+                document.querySelector(".a").style.color = "#000";
+                document.querySelector(".b").style.color = "#000";
+            }
+            else{
+                document.querySelector(".turn").setAttribute("src","../icon/亮度+.png");
+                document.querySelector("body").style.backgroundColor = "#000";
+                document.querySelector(".a").style.color = "#fff";
+                document.querySelector(".b").style.color = "#fff";
+            }
+        }
+        let clock = document.querySelector(".a");
+        let dclock = document.querySelector(".b");
+        let addZreo = (a) => {
+            if (a>=10){
+                return a;
+            }
+            else{
+                return `0${a}`;
+            }
+        }
+        let turnday = (a) => {
+            if (a==1){
+                return "Monday";
+            }
+            if (a==2){
+                return "Tuesday";
+            }
+            if (a==3){
+                return "Wednesday";
+            }
+            if (a==4){
+                return "Thursday";
+            }
+            if (a==5){
+                return "Friday";
+            }
+            if (a==6){
+                return "Saturday";
+            }
+            if (a==7){
+                return "Sunday";
+            }
+            else{
+                return;
+            }
+        }
+        let turnmonth = (a) => {
+            if (a==1){
+                return "January";
+            }
+            if (a==2){
+                return "February";
+            }
+            if (a==3){
+                return "March";
+            }
+            if (a==4){
+                return "April";
+            }
+            if (a==5){
+                return "May";
+            }
+            if (a==6){
+                return "June";
+            }
+            if (a==7){
+                return "July";
+            }
+            if (a==8){
+                return "August";
+            }
+            if (a==9){
+                return "September";
+            }
+            if (a==10){
+                return "October";
+            }
+            if (a==11){
+                return "November";
+            }
+            if (a==12){
+                return "December";
+            }
+            else{
+                return;
+            }
+        }
+        let updateTime = () => {
+            let now = new Date();
+            let time = addZreo(now.getHours()) + ":" +
+            addZreo(now.getMinutes()) + ":" +
+            addZreo(now.getSeconds());
+            clock.innerText = time;
+        }
+        let updateDate = ()=>{
+            let now = new Date();
+            let date = turnday(now.getDay())+" "+addZreo(now.getDate())+ " "+turnmonth(now.getMonth());
+            dclock.innerText = date;
+        }
+        let all = () =>{
+            updateTime();
+            updateDate();
+        }
+        all();
+        setInterval(all,1000)
+    </script>
+</body>
+</html>
