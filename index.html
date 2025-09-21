@@ -1,29 +1,89 @@
 <!DOCTYPE HTML>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T</title>
-</head>
-<body>
-    <code>#include<bits/stdc++.h>
-using namespace std;
-bool a(int n){
-    if(n<=1) return false;
-    for(int i=2;i<n;i++){
-        if((n%i)==0) return false;
-    }
-    return true;
-}
-
-int main(){
-	for(int i=65;i<91;i++){
-	    if(a(i)) cout<<i<<" "<<char(i)<<endl;
-	}
-	for(int i=97;i<123;i++){
-	    if(a(i)) cout<<i<<" "<<char(i)<<endl;
-	}
-	return 0;
-}</code>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>身份证校验码计算器</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: Arial, sans-serif;
+                background: linear-gradient(135deg, #f0f0f0, #d9e4f5);
+            }
+            .container {
+                background: #ffffff;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                width: 400px;
+            }
+            h1 {
+                font-size: 1.8em;
+                color: #333;
+                margin-bottom: 20px;
+            }
+            input[type="text"] {
+                width: calc(100% - 20px);
+                padding: 10px;
+                font-size: 1em;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                margin-bottom: 20px;
+            }
+            button {
+                padding: 10px 20px;
+                font-size: 1em;
+                color: #fff;
+                background-color: #007BFF;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+            #result {
+                margin-top: 20px;
+                font-size: 1.2em;
+                color: #333;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>身份证校验码计算器</h1>
+            <p>请输入前17位身份证号码:</p>
+            <input type="text" id="idnum" maxlength="17" placeholder="输入17位数字">
+            <button onclick="calc();">计算</button>
+            <div id="result"></div>
+        </div>
+        <script>
+            function calc() {
+                var idnum = document.getElementById("idnum").value;
+                if (!/^\d{17}$/.test(idnum)) {
+                    document.getElementById("result").innerText = "请输入正确的17位数字！";
+                    return;
+                }
+                var weights = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+                var checkCodes = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+                var sum = 0;
+                for (var i = 0; i < 17; i++) {
+                    sum += parseInt(idnum[i]) * weights[i];
+                }
+                var mod = sum % 11;
+                document.getElementById("result").innerText = "校验码是: " + checkCodes[mod];
+            }
+        </script>
+    </body>
 </html>
